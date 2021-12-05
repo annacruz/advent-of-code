@@ -1,6 +1,6 @@
 class Bingo
   class << self
-    def run(raw_input, squid_win=false)
+    def run(raw_input, squid_win = false)
       draw_numbers = raw_input[0].split(',').map(&:to_i)
       boards = [[]]
       raw_input = raw_input[1..-1]
@@ -13,7 +13,7 @@ class Bingo
       calculate_points(winner_board, number_factor)
     end
 
-    def get_winner_board(boards, draw_numbers, squid_win)
+    def get_winner_board(boards, draw_numbers, squid_win = false)
       number_factor = nil
       has_winner = false
       winner_board = nil
@@ -21,13 +21,13 @@ class Bingo
         boards.each do |board|
           mark_grid(board, draw_number)
           has_winner = check_winner(board) if index_draw >= 4
-          if has_winner
+          if has_winner && !squid_win
             winner_board = board
             number_factor = draw_number
             break
           end
         end
-        break if has_winner
+        break if has_winner && !squid_win
       end
       [winner_board, number_factor]
     end
